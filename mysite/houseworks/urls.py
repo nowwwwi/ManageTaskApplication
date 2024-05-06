@@ -1,12 +1,14 @@
 from django.urls import path
-from .views import IndexView, HistoryDetailView, HistoryCreateView
+from . import views
 
 app_name = "houseworks"
 urlpatterns = [
     # ex: /houseworks/
-    path("", IndexView.as_view(), name="index"),
+    path("", views.IndexView.as_view(), name="index"),
+    # ex: /work/list
+    path("work/list", views.WorkListView.as_view(), name="work_list"),
     # ex: /houseworks/pk/
-    path("history/specifics/<int:pk>/", HistoryDetailView.as_view(), name="history_detail"),
+    path("history/specifics/<int:pk>/", views.HistoryDetailView.as_view(), name="history_detail"),
     # ex: /create/
-    path("history/create/", HistoryCreateView.as_view(), name="history_create"),
+    path("history/create/", views.HistoryCreateView.as_view(), name="history_create"),
 ]

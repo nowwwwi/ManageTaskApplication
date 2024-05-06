@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% extends 'houseworks/base.html' %}
+{% block content %}
+<h1>Work list</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Work type</th>
+            <th scope="col">Description</th>
+            <th scope="col">Published</th>
+            <th scope="col">Updated</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for work in object_list %}
+        <tr>
+            <th scope="row">{{ work.id }}</th>
+            <th scope="row">{{ work.name }}</th>
+            <th scope="row">{{ work.work_type }} </th>
+            <th scope="row">{{ work.description }} </th>
+            <th scope="row">{{ work.pub_date }} </th>
+            <th scope="row">{{ work.update_date }}</th>
+            <th scope="row">
+                <button type="button" class="btn btn-primary">Detail</button>
+                <button type="button" class="btn btn-secondary">Edit</button>
+                <button type="button" class="btn btn-danger">Delete</button>
+            </th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

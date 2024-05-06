@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Work, WeekDaysOfWork, WorkType, WorkProcess, History
+from .models import Work, IntervalType, HashTag, WorkProcess, History
 
 
 class WorkProcessInline(admin.TabularInline):
@@ -7,25 +7,19 @@ class WorkProcessInline(admin.TabularInline):
     extra = 3
 
 
-class WeekDaysOfWorkInline(admin.TabularInline):
-    model = WeekDaysOfWork
-    extra = 7
-
 class WorkAdmin(admin.ModelAdmin):
     """"""
     list_display = [
         "name",
         "pub_date",
         "update_date",
-        "work_type"
     ]
-    inlines= [
-        WeekDaysOfWorkInline,
-        WorkProcessInline]
+    inlines= [WorkProcessInline]
 
 
 # Register your models here.
 admin.site.register(Work, WorkAdmin)
-admin.site.register(WorkType)
+admin.site.register(HashTag)
+admin.site.register(IntervalType)
 admin.site.register(WorkProcess)
 admin.site.register(History)

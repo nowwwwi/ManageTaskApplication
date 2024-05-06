@@ -2,52 +2,87 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+WEEKDAY_CHOICES = [
+        (0, "月曜日"),
+        (1, "火曜日"),
+        (2, "水曜日"),
+        (3, "木曜日"),
+        (4, "金曜日"),
+        (5, "土曜日"),
+        (6, "日曜日"),
+    ]
+
+
+PRIORITY_CHOICES = [
+    (0, "緊急"),
+    (1, "近いうちにやるべき"),
+    (2, "余裕がある時にやる")
+]
+
 # Create your models here.
-class WorkType(models.Model):
-    """"""
+class HashTag(models.Model):
+    """Declare work type model."""
     name = models.CharField(max_length=50, verbose_name="名前")
     description = models.CharField(max_length=200, verbose_name="説明")
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name="作成日")
     update_date = models.DateTimeField(auto_now=True, verbose_name="更新日")
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Return the name of work type."""
         return f"{self.name}"
 
     class Meta:
-        """"""
-        verbose_name = "家事分類"
-        verbose_name_plural = "家事分類"
+        """Meta work type datas."""
+        verbose_name = "ハッシュタグ"
+        verbose_name_plural = "ハッシュタグ"
 
 
 class Work(models.Model):
+    """Delare work model."""
     name = models.CharField(max_length=50, verbose_name="名前")
     description = models.CharField(max_length=200, verbose_name="説明")
-    is_regular = models.BooleanField(default=True, verbose_name="定期実行の有無")
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name="作成日")
     update_date = models.DateTimeField(auto_now=True, verbose_name="更新日")
 
-    work_type = models.ForeignKey(WorkType, on_delete=models.CASCADE, verbose_name="家事分類")
+    # relations
+    hashtags = models.ManyToManyField(
+        "Hashtag",
+        blank=True,
+        related_name="works"
+    )
+
+    interval_types = models.ManyToManyField(
+        "IntervalType",
+        blank=True,
+        related_name="works"
+    )
 
     def __str__(self) -> str:
+        """Return then name of work."""
         return f"{self.name}"
 
     class Meta:
+        """Meta work model datas."""
         verbose_name = "家事"
         verbose_name_plural = "家事"
 
 
-class WeekDaysOfWork(models.Model):
-    """"""
-    work = models.ForeignKey(Work, models.CASCADE, verbose_name="家事")
-    weekday = models.CharField(max_length=1, verbose_name="曜日")
+class IntervalType(models.Model):
+    """Delare interval type model."""
+    name = models.CharField(max_length=50, verbose_name="名前")
+    description = models.CharField(max_length=200, verbose_name="説明", null=True)
+    priority = models.IntegerField(choices=PRIORITY_CHOICES, default=1)
+
+    pub_date = models.DateTimeField(auto_now_add=True, verbose_name="作成日")
+    update_date = models.DateTimeField(auto_now=True, verbose_name="更新日")
 
     def __str__(self) -> str:
         """Return the name of the weekdays of work."""
-        return f"execute at {self.weekday}."
+        return f"{self.name}"
 
     class Meta:
-        verbose_name = "実行日"
-        verbose_name_plural = "実行日"
+        verbose_name = "実行タイプ"
+        verbose_name_plural = "実行タイプ"
 
 
 class WorkProcess(models.Model):

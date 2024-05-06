@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.db.models.query import QuerySet
 from django.shortcuts import resolve_url
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
@@ -6,11 +7,19 @@ from .models import Work, History
 from .forms import HistoryForm
 
 # Create your views here.
-
 class IndexView(ListView):
     """View for index '/' """
     model = History
     template_name = "houseworks/index.html"
+
+
+class WorkListView(ListView):
+    model = Work
+
+
+class WorkDetailView(DetailView):
+    """"""
+    model = Work
 
 
 class HistoryDetailView(DetailView):
