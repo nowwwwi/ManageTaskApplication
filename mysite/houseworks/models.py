@@ -92,7 +92,11 @@ class WorkProcess(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name="作成日")
     update_date = models.DateTimeField(auto_now=True, verbose_name="更新日")
 
-    work = models.ForeignKey(Work, models.CASCADE, verbose_name="家事")
+    work = models.ForeignKey(
+        Work,
+        models.CASCADE,
+        related_name="work_processes",
+        verbose_name="家事")
 
     def __str__(self):
         return f"{self.name}"
