@@ -8,16 +8,14 @@ from .forms import HistoryForm
 # Create your views here.
 
 class IndexView(ListView):
-    """
-    """
-    model = Work
+    """View for index '/' """
+    model = History
     template_name = "houseworks/index.html"
 
 
-class WorkDetailView(DetailView):
-    """
-    """
-    model = Work
+class HistoryDetailView(DetailView):
+    """View for detail '/specifics/<int:pk>'"""
+    model = History
     template_name = "houseworks/detail.html"
 
 

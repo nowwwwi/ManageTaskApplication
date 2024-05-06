@@ -4,15 +4,17 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class WorkType(models.Model):
+    """"""
     name = models.CharField(max_length=50, verbose_name="名前")
     description = models.CharField(max_length=200, verbose_name="説明")
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name="作成日")
     update_date = models.DateTimeField(auto_now=True, verbose_name="更新日")
 
     def __str__(self):
-        return self.name
-    
+        return f"{self.name}"
+
     class Meta:
+        """"""
         verbose_name = "家事分類"
         verbose_name_plural = "家事分類"
 
@@ -20,6 +22,7 @@ class WorkType(models.Model):
 class Work(models.Model):
     name = models.CharField(max_length=50, verbose_name="名前")
     description = models.CharField(max_length=200, verbose_name="説明")
+    is_regular = models.BooleanField(default=True, verbose_name="定期実行の有無")
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name="作成日")
     update_date = models.DateTimeField(auto_now=True, verbose_name="更新日")
 
@@ -31,6 +34,20 @@ class Work(models.Model):
     class Meta:
         verbose_name = "家事"
         verbose_name_plural = "家事"
+
+
+class WeekDaysOfWork(models.Model):
+    """"""
+    work = models.ForeignKey(Work, models.CASCADE, verbose_name="家事")
+    weekday = models.CharField(max_length=1, verbose_name="曜日")
+
+    def __str__(self) -> str:
+        """Return the name of the weekdays of work."""
+        return f"execute at {self.weekday}."
+
+    class Meta:
+        verbose_name = "実行日"
+        verbose_name_plural = "実行日"
 
 
 class WorkProcess(models.Model):
