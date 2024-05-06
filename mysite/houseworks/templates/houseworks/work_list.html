@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 {% extends 'houseworks/base.html' %}
+{% load bootstrap_icons %}
 {% block content %}
-<h1>Work list</h1>
-
 <table class="table table-striped">
     <thead>
         <tr>
@@ -43,10 +42,11 @@
             <th scope="row">{{ work.pub_date }} </th>
             <th scope="row">{{ work.update_date }}</th>
             <th scope="row">
-                <button type="button" class="btn btn-info">Execute</button>
-                <button type="button" class="btn btn-primary">Detail</button>
-                <button type="button" class="btn btn-secondary">Edit</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-info">{% bs_icon 'play-circle' %}</button>
+                <button type="button" class="btn btn-primary">{% bs_icon 'info-circle' %}</button>
+                <button type="button" class="btn btn-secondary">{% bs_icon 'pencil-square'%}</button>
+                <button type="button" class="btn btn-danger">{% bs_icon 'trash3' %}</button>
+                
             </th>
         </tr>
         {% endfor %}
