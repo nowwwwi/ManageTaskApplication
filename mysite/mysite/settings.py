@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'houseworks.apps.HouseworksConfig',
+    'accounts.apps.AccountsConfig',
     'django_bootstrap5',
 ]
 
