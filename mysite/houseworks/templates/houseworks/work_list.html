@@ -27,7 +27,7 @@
                     {% for hashtag in work.hashtags.all %}
                     <li>#{{ hashtag.name }}</li>
                     {% empty %}
-                    No specific hashtags yet.
+                    <a class="text-warning">No specific hashtags yet.</a>
                     {% endfor %}
                 </ul>
             </th>
@@ -36,7 +36,7 @@
                     {% for interval_type in work.interval_types.all %}
                     <li>{{ interval_type.name }}</li>
                     {% empty %}
-                    No specific interval types yet.
+                    <a class="text-warning">No specific interval types yet.</a>
                     {% endfor %}
                 </ul>
             </th>

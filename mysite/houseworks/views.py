@@ -15,6 +15,10 @@ class IndexView(ListView):
 
 class WorkListView(ListView):
     model = Work
+    queryset = Work.objects.prefetch_related(
+        "hashtags",
+        "interval_types"
+    )
 
 
 class WorkDetailView(DetailView):
