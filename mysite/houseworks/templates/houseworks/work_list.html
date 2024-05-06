@@ -8,8 +8,9 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
-            <th scope="col">Work type</th>
             <th scope="col">Description</th>
+            <th scope="col">Hash tag</th>
+            <th scope="col">Interval type</th>
             <th scope="col">Published</th>
             <th scope="col">Updated</th>
             <th scope="col"></th>
@@ -20,11 +21,29 @@
         <tr>
             <th scope="row">{{ work.id }}</th>
             <th scope="row">{{ work.name }}</th>
-            <th scope="row">{{ work.work_type }} </th>
             <th scope="row">{{ work.description }} </th>
+            <th scope="row">
+                <ul>
+                    {% for hashtag in work.hashtags.all %}
+                    <li>#{{ hashtag.name }}</li>
+                    {% empty %}
+                    No specific hashtags yet.
+                    {% endfor %}
+                </ul>
+            </th>
+            <th scope="row">
+                <ul>
+                    {% for interval_type in work.interval_types.all %}
+                    <li>{{ interval_type.name }}</li>
+                    {% empty %}
+                    No specific interval types yet.
+                    {% endfor %}
+                </ul>
+            </th>
             <th scope="row">{{ work.pub_date }} </th>
             <th scope="row">{{ work.update_date }}</th>
             <th scope="row">
+                <button type="button" class="btn btn-info">Execute</button>
                 <button type="button" class="btn btn-primary">Detail</button>
                 <button type="button" class="btn btn-secondary">Edit</button>
                 <button type="button" class="btn btn-danger">Delete</button>
