@@ -4,7 +4,7 @@ from django.shortcuts import resolve_url
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
 from .models import Work, History, WorkProcess
-from .forms import HistoryForm
+from .forms import HistoryForm, WorkForm
 
 # Create your views here.
 class IndexView(ListView):
@@ -34,6 +34,12 @@ class WorkDetailView(DetailView):
 class WorkCreateView(CreateView):
     """"""
     model = Work
+    form_class = WorkForm
+    success_url = reverse_lazy("houseworks:work_create")
+
+    def get_success_url(self):
+        messages.success(self.request, "タスクを追加しました")
+        return resolve_url("houseworks:work_create")
 
 
 class HistoryDetailView(DetailView):
