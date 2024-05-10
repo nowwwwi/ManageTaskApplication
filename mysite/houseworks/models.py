@@ -45,6 +45,8 @@ class Work(models.Model):
     update_date = models.DateTimeField(auto_now=True, verbose_name="更新日")
 
     # relations
+    default_executor = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, verbose_name="デフォルトの担当者")
+
     hashtags = models.ManyToManyField(
         "Hashtag",
         blank=True,
