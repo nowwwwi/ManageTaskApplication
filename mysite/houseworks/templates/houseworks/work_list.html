@@ -10,6 +10,7 @@
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Description</th>
+            <th scope="col">Default Executor</th>
             <th scope="col">Published</th>
             <th scope="col">Updated</th>
             <th scope="col"></th>
@@ -21,6 +22,7 @@
             <th scope="row">{{ work.id }}</th>
             <th scope="row"><a href="{% url 'houseworks:work_detail' work.id %}">{{ work.name }}</a></th>
             <th scope="row">{{ work.description }} </th>
+            <th scope="row">{{ work.default_executor }} </th>
             <th scope="row">{{ work.pub_date }} </th>
             <th scope="row">{{ work.update_date }}</th>
             <th scope="row">

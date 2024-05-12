@@ -6,12 +6,7 @@
 
 <br>
 
-<p>タスクの詳細を確認します。タスクの編集・削除が可能です。</p>
-<a href="{% url 'houseworks:history_create' %}" class="btn btn-success">{% bs_icon 'play-circle' %}タスク"{{ work.name }}"を実行する</a>
-<a href="{% url 'houseworks:work_update' object.id %}" class="btn btn-secondary">{% bs_icon 'pencil' %}タスク"{{ work.name}}"を編集する</a>
-<a href="{% url 'houseworks:work_delete' object.id %}" class="btn btn-danger">{% bs_icon 'trash3' %}タスク"{{ work.name }}"を消去する</a>
-
-<p>"{{ work.name }}"の詳細情報を表示します</p>
+<p class="text-warning">タスク"{{ work.name }}"を消去しますがよろしいですか？</p>
 
 <table class="table table-striped">
     <thead>
@@ -32,10 +27,6 @@
         <tr>
             <td>Description</td>
             <td>{{ object.description }}</td>
-        </tr>
-        <tr>
-            <td>Default Executor</td>
-            <td>{{ object.default_executor }}</td>
         </tr>
         <tr>
             <td>Published</td>
@@ -90,6 +81,11 @@
         {% endfor %}
     </tbody>
 </table>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
 
 <a href="{% url 'houseworks:work_list' %}">{% bs_icon 'box-arrow-left' %}タスク一覧へ戻る</a>
 

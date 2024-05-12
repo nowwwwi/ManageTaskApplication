@@ -6,7 +6,12 @@ class WorkForm(forms.ModelForm):
     """Form for work"""
     class Meta:
         model = Work
-        fields = ('name', 'description', 'hashtags', 'interval_types')
+        fields = (
+            'name',
+            'description',
+            'default_executor',
+            'hashtags',
+            'interval_types')
     
 
     def __init__(self, *args, **kwargs):
