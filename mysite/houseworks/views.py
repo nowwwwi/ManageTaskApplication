@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.db.models.query import QuerySet
 from django.shortcuts import resolve_url
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.urls import reverse_lazy
 from .models import Work, History, WorkProcess
 from .forms import HistoryForm, WorkForm
@@ -41,6 +41,17 @@ class WorkCreateView(CreateView):
         messages.success(self.request, "タスクを追加しました")
         return resolve_url("houseworks:work_create")
 
+
+class WorkUpdateView(UpdateView):
+    """"""
+    model = Work
+    fields = ('name', 'description', 'hashtags', 'interval_types')
+    template_name_suffix = "_update_form"
+    success_url = reverse_lazy("houseworks:work_list")
+
+    def get_success_url(self):
+        messages.success(self.request, "タスクを更新しました")
+        return resolve_url("houseworks:work_list")
 
 class HistoryDetailView(DetailView):
     """View for detail '/specifics/<int:pk>'"""

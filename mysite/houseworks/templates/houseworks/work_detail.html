@@ -7,8 +7,8 @@
 <br>
 
 <p>タスクの詳細を確認します。タスクの編集・削除が可能です。</p>
-<a href="{% url 'houseworks:index' %}" class="btn btn-success">{% bs_icon 'play-circle' %}タスク"{{ work.name }}"を実行する</a>
-<a href="{% url 'houseworks:index' %}" class="btn btn-secondary">{% bs_icon 'pencil' %}タスク"{{ work.name}}"を編集する</a>
+<a href="{% url 'houseworks:history_create' %}" class="btn btn-success">{% bs_icon 'play-circle' %}タスク"{{ work.name }}"を実行する</a>
+<a href="{% url 'houseworks:work_update' object.id %}" class="btn btn-secondary">{% bs_icon 'pencil' %}タスク"{{ work.name}}"を編集する</a>
 <a href="{% url 'houseworks:index' %}" class="btn btn-danger">{% bs_icon 'trash3' %}タスク"{{ work.name }}"を消去する</a>
 
 <p>"{{ work.name }}"の詳細情報を表示します</p>
