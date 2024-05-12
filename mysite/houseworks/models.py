@@ -13,12 +13,6 @@ WEEKDAY_CHOICES = [
     ]
 
 
-PRIORITY_CHOICES = [
-    (0, "緊急"),
-    (1, "近いうちにやるべき"),
-    (2, "余裕がある時にやる")
-]
-
 # Create your models here.
 class HashTag(models.Model):
     """Declare work type model."""
@@ -73,7 +67,6 @@ class IntervalType(models.Model):
     """Delare interval type model."""
     name = models.CharField(max_length=50, verbose_name="名前")
     description = models.CharField(max_length=200, verbose_name="説明", null=True)
-    priority = models.IntegerField(choices=PRIORITY_CHOICES, default=1)
 
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name="作成日")
     update_date = models.DateTimeField(auto_now=True, verbose_name="更新日")
