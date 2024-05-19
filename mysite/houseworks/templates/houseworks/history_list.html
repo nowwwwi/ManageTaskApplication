@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% extends 'houseworks/base.html' %}
+{% load bootstrap_icons %}
+{% block content %}
+<h1 class="m-0">タスク一覧</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">User</th>
+            <th scope="col">Work</th>
+            <th scope="col">Executed</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for history in object_list %}
+        <tr>
+            <th scope="row"><a href="{% url 'houseworks:history_detail' history.id %}">{{ history.id }}</a></th>
+            <th scope="row">{{ history.user }} </th>
+            <th scope="row">{{ history.work }} </th>
+            <th scope="row">{{ history.pub_date }} </th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

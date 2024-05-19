@@ -3,7 +3,7 @@ from django.db.models.query import QuerySet
 from django.shortcuts import resolve_url
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Work, History, WorkProcess
+from .models import Work, History, WorkProcess, HashTag, IntervalType
 from .forms import HistoryForm, WorkForm
 
 REDIRECT_PATH = "houseworks:work_list"
@@ -64,6 +64,27 @@ class WorkModelViews():
         def get_success_url(self):
             messages.success(self.request, "タスクを消去しました")
             return resolve_url(REDIRECT_PATH)
+
+class HistoryModelViews():
+    class HistoryListView(ListView):
+        model = History
+
+
+class HashtagModelViews():
+    class HashtagListView(ListView):
+        model = HashTag
+    
+    class HashtagCreateView(CreateView):
+        model = HashTag
+
+
+class IntervalModelViews():
+    class IntervalListView(ListView):
+        model = IntervalType
+    
+
+    class IntervalCreateView(CreateView):
+        model = IntervalType
 
 
 class HistoryDetailView(DetailView):
