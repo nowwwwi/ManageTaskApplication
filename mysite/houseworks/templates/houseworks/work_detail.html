@@ -48,8 +48,8 @@
         <tr>
             <td>Interval type</td>
             <td>
-                {% for interval_type in work.interval_types.all %}
-                {{interval_type.name}}
+                {% for item in work_schedules %}
+                {{ item.schedule }}
                 {% empty %}
                 <a class="text-warning">No interval types are set.</a>
                 {% endfor %}
@@ -58,8 +58,8 @@
         <tr>
             <td>Hashtags</td>
             <td>
-                {% for hashtag in work.hashtags.all %}
-                {{ hashtag.name }}
+                {% for item in work_hashtags %}
+                {{ item.hashtag }}
                 {% empty %}
                 No hashtags are set.
                 {% endfor %}

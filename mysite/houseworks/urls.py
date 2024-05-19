@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import IndexView, WorkModelViews, HistoryModelViews, HashtagModelViews
+from .views import IndexView, WorkModelViews, HistoryModelViews, HashtagModelViews, WorkScheduleCreateView
 
 app_name = "houseworks"
 urlpatterns = [
@@ -26,4 +26,6 @@ urlpatterns = [
     path("hashtag/list", HashtagModelViews.HashtagListView.as_view(), name="hashtag_list"),
     # ex: /hashtag/create
     path("hashtag/create", HashtagModelViews.HashtagCreateView.as_view(), name="hashtag_create"),
+    # ex: /work_schedule/create
+    path("workschedule/create", WorkScheduleCreateView.as_view(), name="workschedule_create"),
 ]

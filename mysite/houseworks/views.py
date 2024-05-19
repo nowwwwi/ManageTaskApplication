@@ -3,8 +3,8 @@ from django.db.models.query import QuerySet
 from django.shortcuts import resolve_url
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Work, History, WorkProcess, HashTag
-from .forms import HistoryForm, WorkForm
+from .models import Work, History, WorkProcess, HashTag, WorkHashtag, WorkSchedule
+from .forms import HistoryForm, WorkForm, WorkScheduleForm
 
 REDIRECT_PATH = "houseworks:work_list"
 
@@ -23,14 +23,12 @@ class WorkModelViews():
     class WorkDetailView(DetailView):
         """"""
         model = Work
-        queryset = Work.objects.prefetch_related(
-            "hashtags",
-            "interval_types",
-        )
 
         def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context["work_processes"] = WorkProcess.objects.filter(work=self.object)
+            context["work_hashtags"] = WorkHashtag.objects.filter(work=self.object)
+            context["work_schedules"] = WorkSchedule.objects.filter(work=self.object)
             return context
 
 
@@ -92,3 +90,13 @@ class HistoryCreateView(CreateView):
     def get_success_url(self):
         messages.success(self.request, "実行履歴を追加しました")
         return resolve_url("houseworks:history_create")
+
+
+class WorkScheduleCreateView(CreateView):
+    model = WorkSchedule
+    form = WorkScheduleForm
+    success_url = reverse_lazy("houseworks:workschedule_create")
+
+    def get_success_url(self):
+        messages.success(self.request, "追加しました")
+        return resolve_url("houseworks:workschedule_create")

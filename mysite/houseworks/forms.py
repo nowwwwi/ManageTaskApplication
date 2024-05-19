@@ -1,5 +1,5 @@
 from django import forms
-from .models import History, Work
+from .models import History, Work, WorkSchedule
 
 
 class WorkForm(forms.ModelForm):
@@ -29,6 +29,21 @@ class HistoryForm(forms.ModelForm):
             'work')
 
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs["class"] = "form-control"
+            field.widget.attrs['placeholder'] = field.label
+
+
+class WorkScheduleForm(forms.ModelForm):
+    class Meta:
+        model = WorkSchedule
+        fields = (
+            "work",
+            "schedule",
+        )
+    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
