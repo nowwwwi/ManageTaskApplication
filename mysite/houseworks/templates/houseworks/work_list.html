@@ -4,6 +4,12 @@
 {% block content %}
 <h1 class="m-0">タスク一覧</h1>
 
+<p>名称で絞り込み検索が可能です</p>
+
+{% include 'houseworks/work_search.html' %}
+
+<p>タスクの一覧を表示します</p>
+
 <table class="table table-striped">
     <thead>
         <tr>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!-- Search form -->
+<form action="" method="GET">
+    <input name="query" value="{{ request.GET.query }}" type="text">
+
+    <select name="executor">
+        <option value="">担当者を選択</option>
+        {% for executor in executors %}
+        <option value="{{ executor.id }}">
+            {{ executor.username }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <select name="interval">
+        <option value="">実行曜日を選択</option>
+        {% for interval in intervals %}
+        <option value="{{ executor.id }}">
+            {{ interval.name }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit" class="btn btn-secondary">検索</button>
+</form>

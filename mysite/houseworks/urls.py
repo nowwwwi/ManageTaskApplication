@@ -1,11 +1,11 @@
 from django.urls import path
 from . import views
-from .views import WorkModelViews, HistoryModelViews, HashtagModelViews, IntervalModelViews
+from .views import IndexView, WorkModelViews, HistoryModelViews, HashtagModelViews, IntervalModelViews
 
 app_name = "houseworks"
 urlpatterns = [
     # ex: /houseworks/
-    path("", WorkModelViews.IndexView.as_view(), name="index"),
+    path("", IndexView.as_view(), name="index"),
     # ex: /work/list
     path("work/list", WorkModelViews.WorkListView.as_view(), name="work_list"),
     # ex: /work/create

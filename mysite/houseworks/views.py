@@ -9,13 +9,13 @@ from .forms import HistoryForm, WorkForm
 REDIRECT_PATH = "houseworks:work_list"
 
 # Create your views here.
-class WorkModelViews():
-    class IndexView(ListView):
+class IndexView(ListView):
         """View for index '/' """
         model = History
         template_name = "houseworks/index.html"
 
 
+class WorkModelViews():
     class WorkListView(ListView):
         model = Work
 
