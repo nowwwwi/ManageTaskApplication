@@ -9,10 +9,8 @@ class WorkForm(forms.ModelForm):
         fields = (
             'name',
             'description',
-            'default_executor',
-            'hashtags',
-            'interval_types')
-    
+            'default_executor',)
+
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -26,7 +24,9 @@ class HistoryForm(forms.ModelForm):
     class Meta:
         """Meta data."""
         model = History
-        fields = ('user', 'work')
+        fields = (
+            'user',
+            'work')
 
 
     def __init__(self, *args, **kwargs):

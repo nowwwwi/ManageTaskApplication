@@ -3,16 +3,16 @@ from django.db.models.query import QuerySet
 from django.shortcuts import resolve_url
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Work, History, WorkProcess, HashTag, IntervalType
+from .models import Work, History, WorkProcess, HashTag
 from .forms import HistoryForm, WorkForm
 
 REDIRECT_PATH = "houseworks:work_list"
 
 # Create your views here.
 class IndexView(ListView):
-        """View for index '/' """
-        model = History
-        template_name = "houseworks/index.html"
+    """View for index '/' """
+    model = History
+    template_name = "houseworks/index.html"
 
 
 class WorkModelViews():
@@ -76,15 +76,6 @@ class HashtagModelViews():
     
     class HashtagCreateView(CreateView):
         model = HashTag
-
-
-class IntervalModelViews():
-    class IntervalListView(ListView):
-        model = IntervalType
-    
-
-    class IntervalCreateView(CreateView):
-        model = IntervalType
 
 
 class HistoryDetailView(DetailView):
