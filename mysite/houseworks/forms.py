@@ -9,8 +9,13 @@ class WorkForm(forms.ModelForm):
         fields = (
             'name',
             'description',
-            'default_executor',)
+            'default_executor',
+            'next_execute_date',)
 
+        widgets = {
+            'description': forms.Textarea(attrs={'type': 'str'}),
+            'next_execute_date': forms.DateInput(attrs={'type': 'date'})
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

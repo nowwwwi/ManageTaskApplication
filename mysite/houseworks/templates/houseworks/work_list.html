@@ -32,7 +32,7 @@
             <th scope="row">{{ work.pub_date }} </th>
             <th scope="row">{{ work.update_date }}</th>
             <th scope="row">
-                <a href="{% url 'houseworks:index' %}" class="btn btn-success">{% bs_icon 'play-circle' %}タスク実行</a>
+                <a href="{% url 'houseworks:history_create' %}?user={{ request.user.id }}&work={{ work.id }}" class="btn btn-success">{% bs_icon 'play-circle' %}タスク実行</a>
             </th>
         </tr>
         {% endfor %}

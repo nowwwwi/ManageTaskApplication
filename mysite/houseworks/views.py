@@ -1,24 +1,29 @@
 from django.contrib import messages
-from django.db.models.query import QuerySet
 from django.shortcuts import resolve_url
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Work, History, WorkProcess, HashTag, WorkHashtag, WorkSchedule
-from .forms import HistoryForm, WorkForm, WorkScheduleForm
+from .models import Work, History, WorkProcess, WorkSchedule
+from .forms import HistoryForm, WorkForm
 
 REDIRECT_PATH = "houseworks:work_list"
+
 
 # Create your views here.
 class IndexView(ListView):
     """View for index '/' """
-    model = History
+    model = Work
     template_name = "houseworks/index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["task_count"] = Work.objects.all().count
+        context["history_count"] = History.objects.all().count
+        return context
 
 
 class WorkModelViews():
     class WorkListView(ListView):
         model = Work
-
 
     class WorkDetailView(DetailView):
         """"""
@@ -27,10 +32,9 @@ class WorkModelViews():
         def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context["work_processes"] = WorkProcess.objects.filter(work=self.object)
-            context["work_hashtags"] = WorkHashtag.objects.filter(work=self.object)
             context["work_schedules"] = WorkSchedule.objects.filter(work=self.object)
+            context["histories"] = History.objects.filter(work=self.object)
             return context
-
 
     class WorkCreateView(CreateView):
         """"""
@@ -42,18 +46,16 @@ class WorkModelViews():
             messages.success(self.request, "タスクを追加しました")
             return resolve_url(REDIRECT_PATH)
 
-
     class WorkUpdateView(UpdateView):
         """"""
         model = Work
-        fields = ('name', 'description', 'default_executor','hashtags', 'interval_types')
+        form_class = WorkForm
         template_name_suffix = "_update_form"
         success_url = reverse_lazy(REDIRECT_PATH)
 
         def get_success_url(self):
             messages.success(self.request, "タスクを更新しました")
             return resolve_url(REDIRECT_PATH)
-
 
     class WorkDeleteView(DeleteView):
         model = Work
@@ -68,14 +70,6 @@ class HistoryModelViews():
         model = History
 
 
-class HashtagModelViews():
-    class HashtagListView(ListView):
-        model = HashTag
-    
-    class HashtagCreateView(CreateView):
-        model = HashTag
-
-
 class HistoryDetailView(DetailView):
     """View for detail '/specifics/<int:pk>'"""
     model = History
@@ -85,18 +79,14 @@ class HistoryDetailView(DetailView):
 class HistoryCreateView(CreateView):
     model = History
     form_class = HistoryForm
-    success_url = reverse_lazy("houseworks:history_create")
+    success_url = reverse_lazy("houseworks:history_list")
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['user'] = self.request.GET.get('user', '')
+        initial['work'] = self.request.GET.get('work', '')
+        return initial
 
     def get_success_url(self):
         messages.success(self.request, "実行履歴を追加しました")
-        return resolve_url("houseworks:history_create")
-
-
-class WorkScheduleCreateView(CreateView):
-    model = WorkSchedule
-    form = WorkScheduleForm
-    success_url = reverse_lazy("houseworks:workschedule_create")
-
-    def get_success_url(self):
-        messages.success(self.request, "追加しました")
-        return resolve_url("houseworks:workschedule_create")
+        return resolve_url("houseworks:history_list")

@@ -4,14 +4,12 @@
 {% block content %}
 <h1 class="m-0">{{ object.name }}</h1>
 
-<br>
+<a href="{% url 'houseworks:history_create'%}?user={{ request.user.id }}&work={{ object.id }}" class="btn btn-success">{% bs_icon 'play-circle' %}タスク"{{ work.name }}"を実行する</a>
 
-<p>タスクの詳細を確認します。タスクの編集・削除が可能です。</p>
-<a href="{% url 'houseworks:history_create' %}" class="btn btn-success">{% bs_icon 'play-circle' %}タスク"{{ work.name }}"を実行する</a>
+<li>"{{ work.name }}"の詳細情報を表示します</li>
+
 <a href="{% url 'houseworks:work_update' object.id %}" class="btn btn-secondary">{% bs_icon 'pencil' %}タスク"{{ work.name}}"を編集する</a>
 <a href="{% url 'houseworks:work_delete' object.id %}" class="btn btn-danger">{% bs_icon 'trash3' %}タスク"{{ work.name }}"を消去する</a>
-
-<p>"{{ work.name }}"の詳細情報を表示します</p>
 
 <table class="table table-striped">
     <thead>
@@ -45,48 +43,96 @@
             <td>Updated</td>
             <td>{{ object.update_date }}</td>
         </tr>
-        <tr>
-            <td>Interval type</td>
-            <td>
-                {% for item in work_schedules %}
-                {{ item.schedule }}
-                {% empty %}
-                <a class="text-warning">No interval types are set.</a>
-                {% endfor %}
-            </td>
-        </tr>
-        <tr>
-            <td>Hashtags</td>
-            <td>
-                {% for item in work_hashtags %}
-                {{ item.hashtag }}
-                {% empty %}
-                No hashtags are set.
-                {% endfor %}
-            </td>
-        </tr>
     </tbody>
 </table>
 
-<p>"{{ work.name }}"の一連のプロセスを表示します</p>
+<li>"{{ work.name }}"のプロセスを表示します</li>
 
 <table class="table table-striped">
     <thead>
         <tr>
+            <th scope="col">#</th>
             <th scope="col">プロセス番号</th>
             <th scope="col">作業内容</th>
             <th scope="col">作業詳細</th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
         {% for process in work_processes %}
         <tr>
+            <td>{{ process.id }}</td>
             <td>{{ process.procedure_number }}</td>
             <td>{{ process.name }}</td>
             <td>{{ process.description }}</td>
+            <td>編集 | 削除</td>
         </tr>
         {% empty %}
-        No processes.
+        <td>No processes.</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>プロセスを追加する</td>
+        {% endfor %}
+    </tbody>
+</table>
+
+<li>"{{ work.name }}"のスケジュール一覧</li>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">スケジュールされたステータス</th>
+            <th scope="col">作成日</th>
+            <th scope="col">更新日</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in work_schedules %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.schedule }}</td>
+            <td>{{ item.pub_date }}</td>
+            <td>{{ item.update_date }}</td>
+            <td>編集 | 削除</td>
+        </tr>
+        {% empty %}
+        <td>No schedules.</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>スケジュールを追加する</td>
+        {% endfor %}
+    </tbody>
+</table>
+
+<li>"{{ work.name }}"の実行履歴</li>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">実行者</th>
+            <th scope="col">実行日</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in histories %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.user }}</td>
+            <td>{{ item.pub_date }}</td>
+            <td>編集 | 削除</td>
+        </tr>
+        {% empty %}
+        <td>No histories.</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>履歴を追加する</td>
         {% endfor %}
     </tbody>
 </table>

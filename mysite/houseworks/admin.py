@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Work, HashTag, WorkProcess, History, Schedule, WorkSchedule, WorkHashtag
+from .models import Work, WorkProcess, History, Schedule, WorkSchedule
 
 
 class Inlines():
@@ -7,14 +7,10 @@ class Inlines():
         model = WorkProcess
         extra = 3
 
-
     class WorkSchedule(admin.TabularInline):
         model = WorkSchedule
         extra = 3
 
-    class WorkHashtag(admin.TabularInline):
-        model = WorkHashtag
-        extra = 3
 
 class WorkAdmin(admin.ModelAdmin):
     """"""
@@ -28,8 +24,7 @@ class WorkAdmin(admin.ModelAdmin):
 
     inlines= [
         Inlines.WorkProcess,
-        Inlines.WorkSchedule,
-        Inlines.WorkHashtag,]
+        Inlines.WorkSchedule,]
 
 
 class ScheduleAdmin(admin.ModelAdmin):
@@ -62,7 +57,6 @@ class WorkScheduleAdmin(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(Work, WorkAdmin)
 admin.site.register(Schedule, ScheduleAdmin)
-admin.site.register(HashTag)
 admin.site.register(WorkProcess)
 admin.site.register(History, HistoryAdmin)
 

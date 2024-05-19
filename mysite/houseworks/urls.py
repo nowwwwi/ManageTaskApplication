@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import IndexView, WorkModelViews, HistoryModelViews, HashtagModelViews, WorkScheduleCreateView
+from .views import IndexView, WorkModelViews, HistoryModelViews
 
 app_name = "houseworks"
 urlpatterns = [
@@ -22,10 +22,4 @@ urlpatterns = [
     path("history/specifics/<int:pk>/", views.HistoryDetailView.as_view(), name="history_detail"),
     # ex: /history/create/
     path("history/create/", views.HistoryCreateView.as_view(), name="history_create"),
-    # ex: /hashtag/list
-    path("hashtag/list", HashtagModelViews.HashtagListView.as_view(), name="hashtag_list"),
-    # ex: /hashtag/create
-    path("hashtag/create", HashtagModelViews.HashtagCreateView.as_view(), name="hashtag_create"),
-    # ex: /work_schedule/create
-    path("workschedule/create", WorkScheduleCreateView.as_view(), name="workschedule_create"),
 ]
