@@ -21,4 +21,5 @@ urlpatterns = [
     path("", include("accounts.urls")),
     path("houseworks/", include("houseworks.urls")),
     path('admin/', admin.site.urls),
+    path('silk/', include('silk.urls', namespace='silk')),
 ]

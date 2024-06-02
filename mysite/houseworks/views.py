@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from .models import Work, History, WorkProcess, WorkSchedule
 from .forms import HistoryForm, WorkForm, WorkScheduleForm
+import datetime
 
 REDIRECT_PATH = "houseworks:work_list"
 
@@ -15,9 +16,17 @@ class IndexView(ListView):
     template_name = "houseworks/index.html"
 
     def get_context_data(self, **kwargs):
+        today = datetime.date.today()
+        weekday = today.weekday()
+
         context = super().get_context_data(**kwargs)
         context["task_count"] = Work.objects.all().count
         context["history_count"] = History.objects.all().count
+        context["weekday_task_count"] = WorkSchedule.objects.select_related("work").filter(
+            schedule=weekday,
+            ).count
+        context["today_task_count"] = Work.objects.filter(next_execute_date=today).count
+
         return context
 
 
