@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  db:
+    build:
+      context: .
+      dockerfile: postgres/Dockerfile
+      args:
+        - DB_LANG=ja_JP
+    container_name: db
+    ports:
+      - 5434:5432
+    restart: always
+    volumes:
+      - django-db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=taskdatabase
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+volumes:
+  django-db:
+    driver: local
