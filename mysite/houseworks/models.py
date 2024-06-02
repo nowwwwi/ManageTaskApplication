@@ -54,6 +54,8 @@ class Schedule(models.Model):
     class Meta:
         verbose_name = "実行タイプ"
         verbose_name_plural = "実行タイプ"
+        
+        
 
 
 class WorkProcess(models.Model):
@@ -112,3 +114,10 @@ class WorkSchedule(models.Model):
         """Meta work type datas."""
         verbose_name = "タスクの実行"
         verbose_name_plural = "タスクの実行"
+
+        constraints = [
+            models.UniqueConstraint(
+                fields=["work", "schedule"],
+                name="workschedule_unique"
+            )
+        ]

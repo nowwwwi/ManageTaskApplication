@@ -4,47 +4,9 @@
 {% block content %}
 <h1 class="m-0">{{ object.name }}</h1>
 
-<a href="{% url 'houseworks:history_create'%}?user={{ request.user.id }}&work={{ object.id }}" class="btn btn-success">{% bs_icon 'play-circle' %}タスク"{{ work.name }}"を実行する</a>
+{% include 'components/crud_buttons.html' %}
 
-<li>"{{ work.name }}"の詳細情報を表示します</li>
-
-<a href="{% url 'houseworks:work_update' object.id %}" class="btn btn-secondary">{% bs_icon 'pencil' %}タスク"{{ work.name}}"を編集する</a>
-<a href="{% url 'houseworks:work_delete' object.id %}" class="btn btn-danger">{% bs_icon 'trash3' %}タスク"{{ work.name }}"を消去する</a>
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">属性</th>
-            <th scope="col">値</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>ID</td>
-            <td>{{ object.id }}</td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td>{{ object.name }}</td>
-        </tr>
-        <tr>
-            <td>Description</td>
-            <td>{{ object.description }}</td>
-        </tr>
-        <tr>
-            <td>Default Executor</td>
-            <td>{{ object.default_executor }}</td>
-        </tr>
-        <tr>
-            <td>Published</td>
-            <td>{{ object.pub_date }}</td>
-        </tr>
-        <tr>
-            <td>Updated</td>
-            <td>{{ object.update_date }}</td>
-        </tr>
-    </tbody>
-</table>
+{% include 'components/work_table.html' %}
 
 <div class="accordion" id="accordionPanelsStayOpenExample">
     <div class="accordion-item">
@@ -90,6 +52,21 @@
     </div>
 </div>
 
-<a href="{% url 'houseworks:work_list' %}">{% bs_icon 'box-arrow-left' %}タスク一覧へ戻る</a>
+<div class="row">
+  <div class="col-lg col-8">
+    <!-- small box -->
+    <div class="small-box bg-info">
+      <div class="inner">
+        <p>タスク一覧へ</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-bag"></i>
+      </div>
+      <a href="{% url 'houseworks:work_list' %}" class="small-box-footer">
+          戻る <i>{% bs_icon 'box-arrow-left' %}</i>
+      </a>
+    </div>
+  </div>
+</div>
 
 {% endblock content %}
