@@ -3,7 +3,7 @@ from django.shortcuts import resolve_url
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Work, History, WorkProcess, WorkSchedule
-from .forms import HistoryForm, WorkForm
+from .forms import HistoryForm, WorkForm, WorkScheduleForm
 
 REDIRECT_PATH = "houseworks:work_list"
 
@@ -90,3 +90,18 @@ class HistoryCreateView(CreateView):
     def get_success_url(self):
         messages.success(self.request, "実行履歴を追加しました")
         return resolve_url("houseworks:history_list")
+
+
+class WorkScheduleCreateView(CreateView):
+    model = WorkSchedule
+    form_class = WorkScheduleForm
+    success_url = reverse_lazy("houseworks:history_list")
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['work'] = self.request.GET.get('work', '')
+        return initial
+
+    def get_success_url(self):
+        messages.success(self.request, "スケジュールを追加しました")
+        return resolve_url("houseworks:workschedule_create")

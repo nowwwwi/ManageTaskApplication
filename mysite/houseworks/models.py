@@ -28,7 +28,7 @@ class Work(models.Model):
     next_execute_date = models.DateField(auto_now=False, verbose_name="次回予定日")
     # relations
     default_executor = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, verbose_name="デフォルトの担当者")
-    
+
     def __str__(self) -> str:
         """Return then name of work."""
         return f"{self.name}"

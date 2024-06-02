@@ -22,4 +22,5 @@ urlpatterns = [
     path("history/specifics/<int:pk>/", views.HistoryDetailView.as_view(), name="history_detail"),
     # ex: /history/create/
     path("history/create/", views.HistoryCreateView.as_view(), name="history_create"),
+    path("workschedule/create/", views.WorkScheduleCreateView.as_view(), name="workschedule_create"),
 ]

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">スケジュール</th>
+            <th scope="col">作成日</th>
+            <th scope="col">更新日</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in work_schedules %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>
+                {% if item.schedule == 0 %}
+                    月曜日
+                {% elif item.schedule == 1 %}
+                    火曜日
+                {% elif item.schedule == 2 %}
+                    水曜日
+                {% elif item.schedule == 3 %}
+                    木曜日
+                {% elif item.schedule == 4 %}
+                    金曜日
+                {% elif item.schedule == 5 %}
+                    土曜日
+                {% elif item.schedule == 6 %}
+                    日曜日
+                {% elif item.schedule == 8 %}
+                    月に1回
+                {% elif item.schedule == 16 %}
+                    3か月に一回
+                {% elif item.schedule == 32 %}
+                    半年に一回
+                {% elif item.schedule == 64 %}
+                    1年に一回
+                {% elif item.schedule == 128 %}
+                    必要に応じて
+                {% else %}
+                    No Value.
+                {% endif %}
+            </td>
+            <td>{{ item.pub_date }}</td>
+            <td>{{ item.update_date }}</td>
+            <td>編集 | 削除</td>
+        </tr>
+        {% empty %}
+        <td>No schedules.</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>スケジュールを追加する</td>
+        {% endfor %}
+    </tbody>
+</table>

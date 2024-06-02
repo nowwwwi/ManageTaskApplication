@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">プロセス番号</th>
+            <th scope="col">作業内容</th>
+            <th scope="col">作業詳細</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for process in work_processes %}
+        <tr>
+            <td>{{ process.id }}</td>
+            <td>{{ process.procedure_number }}</td>
+            <td>{{ process.name }}</td>
+            <td>{{ process.description }}</td>
+            <td>編集 | 削除</td>
+        </tr>
+        {% empty %}
+        <td>No processes.</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>プロセスを追加する</td>
+        {% endfor %}
+    </tbody>
+</table>

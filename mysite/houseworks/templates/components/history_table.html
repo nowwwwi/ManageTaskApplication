@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">実行者</th>
+            <th scope="col">実行日</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in histories %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.user }}</td>
+            <td>{{ item.pub_date }}</td>
+            <td>編集 | 削除</td>
+        </tr>
+        {% empty %}
+        <td>No histories.</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>履歴を追加する</td>
+        {% endfor %}
+    </tbody>
+</table>

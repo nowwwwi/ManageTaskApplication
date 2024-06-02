@@ -46,96 +46,49 @@
     </tbody>
 </table>
 
-<li>"{{ work.name }}"のプロセスを表示します</li>
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">プロセス番号</th>
-            <th scope="col">作業内容</th>
-            <th scope="col">作業詳細</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for process in work_processes %}
-        <tr>
-            <td>{{ process.id }}</td>
-            <td>{{ process.procedure_number }}</td>
-            <td>{{ process.name }}</td>
-            <td>{{ process.description }}</td>
-            <td>編集 | 削除</td>
-        </tr>
-        {% empty %}
-        <td>No processes.</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>プロセスを追加する</td>
-        {% endfor %}
-    </tbody>
-</table>
-
-<li>"{{ work.name }}"のスケジュール一覧</li>
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">スケジュールされたステータス</th>
-            <th scope="col">作成日</th>
-            <th scope="col">更新日</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in work_schedules %}
-        <tr>
-            <td>{{ item.id }}</td>
-            <td>{{ item.schedule }}</td>
-            <td>{{ item.pub_date }}</td>
-            <td>{{ item.update_date }}</td>
-            <td>編集 | 削除</td>
-        </tr>
-        {% empty %}
-        <td>No schedules.</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>スケジュールを追加する</td>
-        {% endfor %}
-    </tbody>
-</table>
-
-<li>"{{ work.name }}"の実行履歴</li>
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">実行者</th>
-            <th scope="col">実行日</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in histories %}
-        <tr>
-            <td>{{ item.id }}</td>
-            <td>{{ item.user }}</td>
-            <td>{{ item.pub_date }}</td>
-            <td>編集 | 削除</td>
-        </tr>
-        {% empty %}
-        <td>No histories.</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>履歴を追加する</td>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="accordion" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+          プロセスを確認する
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+        <div class="accordion-body">
+            {% include 'components/process_table.html' %}
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+          スケジュールを確認する
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+        <div class="accordion-body">
+            
+            {% include 'components/schedule_table.html' %}
+            
+            <a href="{% url 'houseworks:workschedule_create'%}?work={{ object.id }}" class="btn btn-success">
+                {% bs_icon 'play-circle' %}"{{ work.name }}"のスケジュールを追加する
+            </a>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+          履歴を確認する
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+        <div class="accordion-body">
+            {% include 'components/history_table.html' %}
+        </div>
+      </div>
+    </div>
+</div>
 
 <a href="{% url 'houseworks:work_list' %}">{% bs_icon 'box-arrow-left' %}タスク一覧へ戻る</a>
 
